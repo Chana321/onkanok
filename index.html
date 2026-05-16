@@ -307,7 +307,12 @@
     .mobile-sort-btn svg { width: 15px; height: 15px; }
 
     /* ============================================================ GRID */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 18px; 
+  min-height: 800px; /* 🌟 เติมบรรทัดนี้เข้าไปเพื่อจองพื้นที่การ์ดสินค้าล่วงหน้า */
+}
 
     .card {
       background: var(--white); border-radius: 14px; overflow: hidden;
@@ -832,7 +837,7 @@
       <div id="listings" class="section-head">
         <div>
           <div class="section-title">รายการทรัพย์สิน</div>
-          <div class="section-count" id="secLabel">ทั้งหมด 0 รายการ</div>
+          <div class="section-count" id="secLabel">&nbsp;</div>
         </div>
         <div class="mobile-sort-btn" style="position:relative;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
