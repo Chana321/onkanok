@@ -963,29 +963,31 @@
       return 4;                                // คอมพิวเตอร์: 4 รูป
     }
 
-    function buildHero(){
-      const track = document.getElementById('heroTrack');
-      track.innerHTML = HERO_IDX.map((di, si) => {
-        const d = DATA[di];
-        return `<div class="hero-slide" data-di="${di}" onclick="openDetail(${di})">
-          <div class="hero-slide-img">
-            <img src="${d.img}" alt="${d.title}" loading="${si < 5 ? 'eager' : 'lazy'}">
-          </div>
-          <div class="hero-caption">
-            <div class="hero-caption-type">${d.tag || typeMap[d.type]}</div>
-            <div class="hero-caption-title-row">
-              <span class="hero-caption-title">${d.title}</span>
-              <span class="hero-caption-loc">${pinSVG}${d.loc}</span>
-            </div>
-            <div class="hero-caption-bottom">
-              <div class="hero-caption-price">${d.price}<span>บาท</span></div>
-              <div class="hero-caption-area">${d.area}</div>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
-      renderDots(); startTimer();
-    }
+   function buildHero(){
+  const track = document.getElementById('heroTrack');
+  track.innerHTML = HERO_IDX.map((di, si) => {
+    const d = DATA[di];
+    return `<div class="hero-slide" data-di="${di}" onclick="openDetail(${di})">
+      <div class="hero-slide-img">
+        <img src="${d.img}" alt="${d.title}" 
+             loading="${si === 0 ? 'eager' : 'lazy'}" 
+             ${si === 0 ? 'fetchpriority="high"' : ''}>
+      </div>
+      <div class="hero-caption">
+        <div class="hero-caption-type">${d.tag || typeMap[d.type]}</div>
+        <div class="hero-caption-title-row">
+          <span class="hero-caption-title">${d.title}</span>
+          <span class="hero-caption-loc">${pinSVG}${d.loc}</span>
+        </div>
+        <div class="hero-caption-bottom">
+          <div class="hero-caption-price">${d.price}<span>บาท</span></div>
+          <div class="hero-caption-area">${d.area}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderDots(); startTimer();
+}
 
     function renderDots(){
   const steps = getItemsPerView();
