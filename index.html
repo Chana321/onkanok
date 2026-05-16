@@ -983,15 +983,16 @@
     }
 
     function renderDots(){
-      const steps = getItemsPerView();
-      const totalPages = Math.ceil(HERO_IDX.length / steps);
-      const dots = document.getElementById('heroDots');
-      let html = '';
-      for(let i=0; i<totalPages; i++){
-        html += `<button class="hero-dot ${i===heroPage?'active':''}" onclick="heroJump(${i})"></button>`;
-      }
-      dots.innerHTML = html;
-    }
+  const steps = getItemsPerView();
+  const totalPages = Math.ceil(HERO_IDX.length / steps);
+  const dots = document.getElementById('heroDots');
+  let html = '';
+  for(let i=0; i<totalPages; i++){
+    // เติม aria-label="สไลด์ที่ ${i+1}" เข้าไปในปุ่ม
+    html += `<button class="hero-dot ${i===heroPage?'active':''}" onclick="heroJump(${i})" aria-label="สไลด์ที่ ${i+1}"></button>`;
+  }
+  dots.innerHTML = html;
+}
 
     function setHero(page){
       const steps = getItemsPerView();
