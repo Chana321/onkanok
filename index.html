@@ -573,10 +573,10 @@
     .fab-wrapper { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .fab-options { display: flex; flex-direction: column; gap: 10px; visibility: hidden; opacity: 0; transform: translateY(30px) scale(0.7); transition: all .3s cubic-bezier(0.175,0.885,0.32,1.275); }
     .fab-options.show { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
-    .fab-main { width: 43px; height: 43px; border-radius: 50%; background: rgba(248, 247, 247, 0.829); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
+    .fab-main { width: 43px; height: 43px; border-radius: 10px; background: rgba(248, 247, 247, 0.829); border: none; box-shadow: 0 6px 20px rgba(0,0,0,.18); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 2; padding: 0; overflow: hidden; outline: none; -webkit-tap-highlight-color: transparent; }
     .fab-main img { width: 33px; height: 33px; object-fit: contain; } 
     .fab-main.active { transform: scale(1.05); }
-    .fab-mini { 
+   .fab-mini { 
   width: 46px; 
   height: 46px; 
   border-radius: 50%; 
@@ -584,15 +584,22 @@
   align-items: center; 
   justify-content: center; 
   text-decoration: none; 
-  box-shadow: 0 4px 12px rgba(0,0,0,.15); 
   transition: transform .2s; 
-  padding: 10px; /* 🌟 เติมบรรทัดนี้: เพื่อบีบให้รูปภาพข้างในเว้นระยะห่างจากขอบปุ่มอย่างสวยงาม */
-  overflow: hidden; /* 🌟 เติมบรรทัดนี้: กันรูปภาพล้นขอบวงกลม */
+  padding: 10px;           /* ระยะบีบไอคอนด้านในให้พอดีสวยงาม */
+  overflow: hidden; 
+  
+  /* 🌟 ใช้สีขาวโปร่งแสง (ใสเหมือนแก้ว 80%) เท่ากันทุกปุ่ม ไม่เปลืองแรงเครื่อง */
+  background: rgba(255, 255, 255, 0.8) !important; 
+  
+  /* 🌟 ปรับเงาให้จางลงแบบมินิมอล เพื่อขับความใสของวงกลมให้เด่นขึ้น */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important; 
 }
+
+
     .fab-mini:hover { transform: scale(1.1); }
-    .fab-mini.line { background: #00b900; }
-    .fab-mini.tel  { background: whitesmoke; }
-    .fab-mini.fb   { background: #1877f2; }
+    .fab-mini.line  { background: none !important; }
+.fab-mini.tel   { background: none !important; }
+.fab-mini.fb    { background: none !important; }
 
     /* ============================================================ SCROLL TOP */
     .scroll-top { position: fixed; bottom: 28px; left: 28px; width: 42px; height: 42px; border-radius: 10px; background: var(--ink-mid); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, visibility .3s, transform .3s; z-index: 900; -webkit-tap-highlight-color: transparent; }
