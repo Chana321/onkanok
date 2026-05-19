@@ -661,7 +661,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   font-size: 14px; font-weight: 400; color: #fff; line-height: 0.5;
   text-shadow: 0 1px 10px rgba(0,0,0,0.5);margin-left: 2px;
 }
-  .announce-bar { gap: 15px; padding: 15px 16px; margin-top: 0; margin-top: 1px; border-radius: 0 0 4px 4px; }
+  .announce-bar { gap: 15px; padding: 10px 16px; margin-top: 0; margin-top: 1px; border-radius: 0 0 3px 3px; }
   .ann-div { display: none; }
   .ann-item { font-size: 11px;  }
   
