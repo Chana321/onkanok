@@ -320,7 +320,7 @@ body {
 .card-tag { position: absolute; top: 11px; left: 11px; font-size: 10.5px; font-weight: 500; padding: 3px 5px; border-radius: 3px; z-index: 2;}
 .tag-house      { background: var(--blue-light); color: var(--blue); }
 .tag-landhouse  { background: var(--green-light); color: var(--green-dark); }
-.tag-large-land { background: var(--green-light); color: var(--green-dark); }
+.tag-large-land { background: rgb(255, 239, 95); color:  rgb(109, 93, 0); }
 
 .card-body { padding: 16px 18px 18px; }
 .card-loc  { font-size: 11px; color: var(--silver); margin-bottom: 5px; display: flex; align-items: center; gap: 3px; }
@@ -601,9 +601,9 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
 
 /* ============================================================ RESPONSIVE */
 @media (max-width: 768px) {
-   .pagination {
-  margin-top: 45px; 
-}
+
+  .hero-arrow { display: none; }
+  .hero-arrow-prev { display: none;}
 
   .modal-cta { flex-direction: row; } .btn-fb, .btn-map { flex: 1; }
 
@@ -661,7 +661,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   font-size: 14px; font-weight: 400; color: #fff; line-height: 0.5;
   text-shadow: 0 1px 10px rgba(0,0,0,0.5);margin-left: 2px;
 }
-  .announce-bar { gap: 15px; padding: 10px 16px; margin-top: 0; margin-top: 1px; border-radius: 0 0 3px 3px; }
+  .announce-bar { gap: 15px; padding: 15px 16px; margin-top: 0; margin-top: 1px; border-radius: 0 0 4px 4px; }
   .ann-div { display: none; }
   .ann-item { font-size: 11px;  }
   
@@ -686,7 +686,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   .btn-exit { width: 100%; height: 63px; background: var(--ink); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .nav-menu a:not(.social-link) { display: flex; align-items: center; justify-content: center; padding: 15px 0; font-size: 15px; color: var(--silver); border-radius: 0; border-bottom: 1px solid var(--border-dark); width: 100%; }
   .nav-menu a.active:not(.social-link) { color: var(--white); background: lab(100% 0.01 -0.01 / 0.075); }
-  .section-head { padding: 36px 0 22px; margin-top: 20px;}
+  .section-head { padding: 36px 0 22px; margin-top: 5px;}
   .desktop-only { display: none !important; }
   .mobile-sort-btn { display: flex; }
   .modal-box { height: 85dvh; border-radius: 18px 18px 14px 14px; }

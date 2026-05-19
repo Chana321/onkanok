@@ -343,23 +343,25 @@
        SWIPE สำหรับ Modal (เบาเครื่องด้วย passive: true)
     ============================================= */
     let touchStartX = null;
-    const modalGalleryArea = document.querySelector('.modal-gallery');
-    
-    // บันทึกตำแหน่งตอนนิ้วแตะจอ
-    modalGalleryArea.addEventListener('touchstart', e => { 
-      touchStartX = e.touches[0].clientX; 
-    }, { passive: true });
+let touchStartY = null;
+const modalGalleryArea = document.querySelector('.modal-gallery');
 
-    // คำนวณตอนยกนิ้วออก
-    modalGalleryArea.addEventListener('touchend', e => {
-      if (touchStartX === null) return;
-      
-      const diffX = e.changedTouches[0].clientX - touchStartX;
-      
-      // ถ้าระยะการปัดมากกว่า 40px ถึงจะเลื่อนรูป (ป้องกันการเผลอโดน)
-      if (Math.abs(diffX) > 40) {
-        galMove(diffX < 0 ? 1 : -1); // ปัดซ้ายไปหน้ารูปถัดไป, ปัดขวากลับรูปเดิม
-      }
-      
-      touchStartX = null; // คืนค่า
-    }, { passive: true });
+modalGalleryArea.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+modalGalleryArea.addEventListener('touchmove', e => {
+  if (!touchStartX) return;
+  const dx = Math.abs(e.touches[0].clientX - touchStartX);
+  const dy = Math.abs(e.touches[0].clientY - touchStartY);
+  if (dx > dy) e.preventDefault();
+}, { passive: false });
+
+modalGalleryArea.addEventListener('touchend', e => {
+  if (!touchStartX) return;
+  const diffX = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diffX) > 40) galMove(diffX < 0 ? 1 : -1);
+  touchStartX = null;
+  touchStartY = null;
+}, { passive: true });
