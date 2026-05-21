@@ -26,7 +26,7 @@ function setActiveNav() {
   } else {
     activeLink = [...links].find(link => {
       const href = link.getAttribute('href');
-      return href === '#' || href === 'index.html';
+      return href === '#' || href === '/' || href === 'index.html';
     });
   }
 
