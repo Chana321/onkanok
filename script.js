@@ -140,16 +140,35 @@
     },{passive:true});
 
     /* ---- Modal ---- */
-    let galImages=[], galIndex=0;
+    let galImages=[], galIndex=0, galleryWarmTimer=null;
+
+    function loadGalleryImage(i) {
+      if (!galImages.length) return;
+      const safeIndex = (i + galImages.length) % galImages.length;
+      const img = document.querySelectorAll('#galTrack img')[safeIndex];
+      if (!img || img.src || !img.dataset.src) return;
+      img.loading = 'eager';
+      img.decoding = 'async';
+      img.src = img.dataset.src;
+      delete img.dataset.src;
+    }
+
+    function warmGalleryImages(includePrev = true) {
+      loadGalleryImage(galIndex);
+      loadGalleryImage(galIndex + 1);
+      if (includePrev) loadGalleryImage(galIndex - 1);
+    }
 
     function openDetail(idx) {
       const d = DATA[idx];
       galImages = (d.gallery && d.gallery.length > 0) ? d.gallery : [d.img];
       galIndex = 0;
 
-     const trackHTML = galImages.map(src =>
+      if (galleryWarmTimer) clearTimeout(galleryWarmTimer);
+
+     const trackHTML = galImages.map((src, i) =>
         `<div class="gal-slide">
-           <img src="${src}" draggable="false" onload="this.classList.add('loaded'); this.parentElement.classList.add('finish-load');">
+           <img ${i === 0 ? `src="${src}" fetchpriority="high"` : `data-src="${src}"`} loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" draggable="false" onload="this.classList.add('loaded'); this.parentElement.classList.add('finish-load');">
          </div>`
       ).join('');
 
@@ -188,10 +207,12 @@
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow            = 'hidden';
       document.body.classList.add('hide-floating');
+      galleryWarmTimer = setTimeout(() => warmGalleryImages(false), 350);
 
       requestAnimationFrame(() => { body.scrollTop = 0; });
     }
     function closeDetail() {
+      if (galleryWarmTimer) clearTimeout(galleryWarmTimer);
       document.getElementById('detailModal').classList.remove('open');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
@@ -205,8 +226,8 @@
     dots.forEach((d, i) => d.classList.toggle('active', i === galIndex)); 
   }
 }
-    function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
-    function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); }
+    function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); warmGalleryImages(); }
+    function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); warmGalleryImages(); }
 
     /* GRID & PAGINATION */
     const observer=new IntersectionObserver(entries=>{ entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } }); },{threshold:0.08});
