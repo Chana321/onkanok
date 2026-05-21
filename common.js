@@ -10,14 +10,17 @@ function closeMenu() {
 
 function setActiveNav() {
   const links = document.querySelectorAll('.nav-menu a');
-  const currentFile = location.pathname.split('/').pop() || 'index.html';
+  const currentFile = location.pathname.replace(/\/+$/, '').split('/').pop() || 'index.html';
   const currentHash = location.hash;
 
   links.forEach(link => link.classList.remove('active'));
 
   let activeLink;
-  if (currentFile === 'sell.html') {
-    activeLink = [...links].find(link => link.getAttribute('href') === 'sell.html');
+  if (currentFile === 'sell' || currentFile === 'sell.html') {
+    activeLink = [...links].find(link => {
+      const href = link.getAttribute('href') || '';
+      return href === 'sell' || href === 'sell.html' || href === '/sell';
+    });
   } else if (currentHash === '#listings') {
     activeLink = [...links].find(link => link.getAttribute('href')?.includes('#listings'));
   } else {
