@@ -244,7 +244,16 @@ body {
 /* progress bar */
 .hero-progress {
   position: absolute; bottom: 0; left: 0;
-  height: 3px; background:  var(--dust); z-index: 10; width: 0%;
+  height: 3px; background:  var(--dust); z-index: 10; width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.hero-progress.running {
+  animation: heroProgress var(--hero-progress-duration, 5000ms) linear forwards;
+}
+@keyframes heroProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 /* ============================================================ PAGE */
@@ -590,7 +599,6 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
 
 .fab-mini:hover { transform: scale(1.1); }
  
-.fab-mini.fb    { background: #0084FF !important; } /* สีฟ้าสดใสของ Messenger */
 .fab-mini.line  { background: #00b900 !important; } /* สีเขียวสว่างของ LINE */
 .fab-mini.tel   { background: whitesmoke !important; } /* สีเทาเข้มพรีเมียม เข้ากับปุ่มหลัก */
 
@@ -605,7 +613,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   .hero-arrow { display: none; }
   .hero-arrow-prev { display: none;}
 
-  .modal-cta { flex-direction: row; } .btn-fb, .btn-map { flex: 1; }
+  .modal-cta { flex-direction: row; } .btn-map { flex: 1; }
 
   
 
@@ -746,4 +754,221 @@ body.hide-floating .scroll-top {
 .btn-cta span {
   position: relative;
   top: 2px; /* ลองปรับเลขตรงนี้ดูครับ 1px, 1.5px หรือ 2px */
+}
+
+/* ============================================================ THANK YOU PAGE - ORIGINAL INTRO / CTA */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.thanks-page {
+  padding-top: calc(var(--nav-height) + 56px);
+}
+
+.thanks-page .section-title {
+  text-align: center;
+  margin-bottom: 44px;
+  display: block;
+  border-bottom: 0;
+  padding: 0;
+}
+
+.thanks-page .section-h1 {
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 300;
+  color: rgb(0, 1, 49);
+  line-height: 1.2;
+  margin-bottom: 10px;
+  letter-spacing: 0;
+  animation: fadeSlideDown .7s .1s ease both;
+}
+
+.thanks-page .section-h1 span {
+  color: #d1a655;
+  font-weight: 400;
+}
+
+.thanks-page .section-title p {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 300;
+  line-height: 1.6;
+  animation: fadeSlideDown .7s .3s ease both;
+}
+
+.thanks-page .title-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #d1a655, #f0d08a, #d1a655, transparent);
+  border-radius: 2px;
+  margin: 18px auto 0;
+  opacity: .7;
+  animation: fadeSlideDown .7s .35s ease both;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 72px;
+  align-items: start;
+}
+
+.gallery-card {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 9 / 16;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.gallery-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+.gallery-card:hover .card-photo img {
+  transform: scale(1.05);
+}
+
+.gallery-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-photo {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--fog);
+}
+
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .55s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 55%);
+  opacity: .5;
+  transition: opacity .3s;
+}
+
+.photo-date {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.88);
+  font-size: 10px;
+  letter-spacing: 0;
+  backdrop-filter: blur(6px);
+}
+
+.cta-section {
+  text-align: center;
+  padding: 56px 32px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #fdf8f0 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(209,166,85,.15);
+}
+
+.cta-section h3 {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  color: rgb(0, 1, 49);
+  margin-bottom: 10px;
+  letter-spacing: 0;
+}
+
+.cta-section p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 28px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 400;
+  transition: all .25s;
+  letter-spacing: 0;
+}
+
+.btn-primary {
+  background: rgb(0, 1, 49);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background: #d1a655;
+  color: var(--white);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.18);
+}
+
+@media (max-width: 768px) {
+  .thanks-page {
+    padding-top: calc(var(--nav-height) + 32px);
+  }
+
+  .thanks-page .section-title {
+    margin-bottom: 32px;
+  }
+
+  .thanks-page .section-h1 {
+    font-size: 26px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .gallery-card {
+    border-radius: 10px;
+  }
+
+  .gallery-card:hover .card-photo img {
+    transform: none;
+  }
+
+  .cta-section {
+    padding: 40px 24px;
+  }
 }
