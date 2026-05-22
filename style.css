@@ -123,7 +123,7 @@ body {
   width: 1px; height: 13px; background: #d0cdc9; flex-shrink: 0;
 }
 
-/* ============================================================ HERO CAROUSEL — PREMIUM (4 Slides / 16:9) */
+/* ============================================================ HERO CAROUSEL — PREMIUM (Responsive Slides / 16:9) */
 .hero-carousel {
   position: relative; width: 100%;
   overflow: hidden; background: #080808;
@@ -135,7 +135,7 @@ body {
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1);
 }
 .hero-slide {
-  flex: 0 0 25%; /* แสดง 4 รูปต่อสไลด์บน Desktop */
+  flex: 0 0 33.3333%; /* Full HD: 3 รูปต่อสไลด์ */
   position: relative; overflow: hidden;
   display: flex; flex-direction: column;
   cursor: pointer;
@@ -746,6 +746,12 @@ body.hide-floating .scroll-top {
   visibility: hidden !important;
   pointer-events: none !important;
   transition: opacity 0.2s ease, visibility 0.2s !important;
+}
+
+
+/* จอ 2K ขึ้นไป ให้กลับไปแสดง 4 รูป */
+@media (min-width: 2200px) {
+  .hero-slide { flex: 0 0 25% !important; }
 }
 
 /* สำหรับ iPad / แท็บเล็ต ให้แสดง 2 รูป */

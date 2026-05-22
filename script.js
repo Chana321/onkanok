@@ -42,7 +42,8 @@
    function getItemsPerView() { 
       if (window.innerWidth <= 600) return 1;  // มือถือจอเล็ก: 1 รูป
       if (window.innerWidth <= 1024) return 2; // แท็บเล็ต/iPad: 2 รูป
-      return 4;                                // คอมพิวเตอร์: 4 รูป
+      if (window.innerWidth < 2200) return 3;  // Full HD/โน้ตบุ๊กจอใหญ่: 3 รูป
+      return 4;                                // จอ 2K ขึ้นไป: 4 รูป
     }
 
  function buildHero(){
