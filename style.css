@@ -356,7 +356,7 @@ body {
 /* ============================================================ PAGINATION */
 .pagination {
   display: flex; align-items: center; justify-content: center;
-  gap: 16px; margin-top: 80px; width: 100%; 
+  gap: 16px; margin-top: 60px; width: 100%; 
 }
 .page-btn {
   font-family: 'Prompt', sans-serif; font-size: 14px; font-weight: 500;
@@ -377,7 +377,7 @@ body {
 
 /* ============================================================ FOOTER */
 footer {
-  margin-top: 80 px;
+  margin-top: 20px;
   background: var(--ink-mid);
   color: var(--white);
   padding: 52px 28px 32px;
@@ -385,13 +385,13 @@ footer {
 }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
 .footer-brand { display: flex; align-items: center; gap: 14px; }
-.footer-logo  { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
-.footer-name  { font-size: 16px; font-weight: 600; color: var(--white); }
-.footer-sub   { font-size: 12px; color: var(--silver); }
-.footer-desc  { font-size: 13px; color: var(--silver); line-height: 1.9; }
-.footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-.footer-links a { color: var(--mist); text-decoration: none; font-size: 14px; transition: color .2s; padding: 4px 0; border-bottom: 1px solid transparent; }
-.footer-links a:hover { color: var(--white); border-bottom-color: var(--blue); }
+.footer-logo  { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #333; margin-left: -30px; margin-top: -5px; }
+.footer-name  { font-size: 12px; font-weight: 400; color: var(--white);padding-top: 10px;margin-left: -8px ;line-height: 0.9;}
+.footer-sub   { font-size: 15px; font-weight: 500;color: var(--silver); margin-left: -10px}
+.footer-desc  { font-size: 13px; color: var(--silver); line-height: 1.9; max-width: 520px; }
+.footer-links { display: flex; column-gap: 24px; row-gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 100%; }
+.footer-links a { color: var(--mist); text-decoration: none; font-size: 14px; line-height: 1.6; white-space: nowrap; transition: color .2s; padding: 4px 0; border-bottom: 1px solid transparent; }
+.footer-links a:hover { color: var(--white); border-bottom-color: var(--dust); }
 .footer-copy { font-size: 12px; color: var(--dust); padding-top: 16px; border-top: 1px solid #2a2a2a; width: 100%; }
 
 /* ============================================================ MODAL */
@@ -415,7 +415,7 @@ footer {
   position: relative; 
   width: 100%; 
   aspect-ratio: 16/9; 
-  max-height: 45vh; /* บังคับไม่ให้รูปสูงเกิน 45% ของความสูงหน้าจอ */
+  max-height: 45vh; 
   overflow: hidden; 
   flex-shrink: 0; 
   touch-action: pan-y;
@@ -426,7 +426,7 @@ transform: translate3d(0, 0, 0);}
 .gal-slide { 
   flex: 0 0 100%; height: 100%; 
   position: relative; 
-  background-color: var(--fog); /* สีเทารอโหลด */
+  background-color: var(--fog); 
   overflow: hidden;
 }
 .gal-slide::after {
@@ -439,13 +439,13 @@ transform: translate3d(0, 0, 0);}
   pointer-events: none;
 }
 
-/* --- เพิ่มโค้ด 4 บรรทัดนี้ต่อท้ายเลยครับ --- */
+
 @keyframes cheap-shimmer {
   100% {
     transform: translateX(400%);
   }
 }
-/* ------------------------------------ */
+
 .gal-slide img { 
   position: relative; z-index: 1; 
   width: 100%; height: 100%; object-fit: cover; display: block; 
@@ -458,16 +458,16 @@ transform: translate3d(0, 0, 0);}
   opacity: 1; 
 }
 .gal-slide.finish-load::after {
-  display: none; /* ปิดแสงทิ้งเพื่อประหยัดแบต */
+  display: none; 
 }
 
 .gal-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.6); /* ปรับความโปร่งใส (เลข 0.4 ยิ่งน้อยยิ่งใส) */
+  background: rgba(255, 255, 255, 0.6); 
   border: none; cursor: pointer;
-  width: 30px; height: 30px; /* ลดขนาดปุ่ม */
+  width: 28px; height: 28px; 
   border-radius: 50%;
-  font-size: 16px; /* ลดขนาดไอคอนลูกศร */
+  font-size: 16px; 
   display: flex; align-items: center; justify-content: center;
   transition: background .2s; color: var(--ink); z-index: 2;
 }
@@ -478,14 +478,14 @@ transform: translate3d(0, 0, 0);}
 .gal-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.45); cursor: pointer; transition: background .2s; border: none; padding: 0; }
 .gal-dot.active { background:  rgba(255, 255, 255, 0.9); }
 
-/* --- ปุ่มกากบาทปิด Modal --- */
+/* --- ปิด Modal --- */
 .modal-close {
   position: absolute; top: 12px; right: 12px;
-  width: 28px; height: 28px; /* ลดขนาดปุ่ม */
+  width: 30px; height: 30px; 
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4); /* โปร่งใสเท่ากัน */
+  background: rgba(255, 255, 255, 0.6); 
   border: none;
-  cursor: pointer; font-size: 14px; /* ลดขนาดกากบาท */
+  cursor: pointer; font-size: 14px; 
   display: flex; align-items: center; justify-content: center;
   color: var(--ink); z-index: 10; transition: background .2s;
 }
@@ -496,10 +496,10 @@ transform: translate3d(0, 0, 0);}
 .modal-tag { 
   font-size: 10px; font-weight: 500; 
   padding: 4px 14px; border-radius: 20px; 
-  background: var(--ink);
+  background: linear-gradient(135deg, #111111 0%, #6b6b6b 100%);
   color: var(--white) !important;   
 }
-.modal-title { font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
+.modal-title { font-size: 17px; font-weight: 400; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
 .modal-loc { font-size: 14px; color: var(--dust); display: flex; align-items: center; gap: 2px; margin-bottom: 16px; }
 .modal-loc svg { width: 13px; height: 13px; flex-shrink: 0; }
 
@@ -517,10 +517,10 @@ transform: translate3d(0, 0, 0);}
 .detail-label { font-size: 12px; color: var(--dust); margin-bottom: 4px; }
 .detail-value { font-size: 16px; font-weight: 500; color: var(--ink); }
  
-/* เอาสีน้ำเงินออกจากราคา ให้เป็นสีดำพรีเมียม */
+
 .detail-price .detail-value { color: var(--ink); font-size: 16px; }
 
-/* 3. คำว่า "รายละเอียด" (เปลี่ยนเป็นดำ และเพิ่มเส้นตกแต่ง) */
+
 .modal-section-label { 
   font-size: 15px; font-weight: 500; 
   color: var(--ink); 
@@ -528,13 +528,13 @@ transform: translate3d(0, 0, 0);}
   letter-spacing: 0; text-transform: none;
   display: flex; align-items: center; gap: 10px;
 }
-/* เส้นขีดด้านหลังคำว่ารายละเอียด เพิ่มความหรูหรา */
+
 .modal-section-label::after {
   content: ""; flex: 1; height: 1px; background: var(--border);
 }
 .modal-desc-text { font-size: 14px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 20px; white-space: pre-line; }
 
-/* 4. โซนปุ่มด้านล่าง (สร้างความสมดุลด้วย ปุ่มทึบ และ ปุ่มโปร่ง) */
+
 .modal-cta { 
   display: flex; flex-direction: column; gap: 10px; 
   padding: 16px 24px 24px; 
@@ -543,27 +543,27 @@ transform: translate3d(0, 0, 0);}
 }
  
 .btn-cta { 
-  flex: 1 1 0%; /* 🌟 คำสั่งเด็ดขาด: บังคับให้แบ่งพื้นที่เท่ากันเป๊ะๆ */
-  width: 50%;  /* ย้ำอีกรอบว่าต้อง 50% เท่านั้น */
+  flex: 1 1 0%; 
+  width: 50%;  
   height: 48px; 
   border-radius: 12px; 
   display: flex; align-items: center; justify-content: center; gap: 8px; 
   text-decoration: none; font-family: 'Prompt', sans-serif; font-size: 14px; font-weight: 400;
   white-space: nowrap; cursor: pointer; transition: all .2s; 
   padding: 0 10px;
-  overflow: hidden; /* กันข้อความล้นปุ่ม */
+  overflow: hidden; 
 }
 .btn-cta .cta-icon-img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
 .btn-cta:active { transform: scale(0.98); }
 .btn-call { 
- background: linear-gradient(135deg, #111111 0%, #6b6b6b 100%) !important;
+ background: linear-gradient(135deg, #06200a 0%, #6b6b6b 100%) !important;
   color: var(--white) !important; 
   border: 1.5px solid var(--dust);
 }
 .btn-map { 
-  background:linear-gradient(135deg, #111111 0%, #6b6b6b 100%) !important; 
+  background:linear-gradient(135deg, #a8a7a7 0%, #6b6b6b 100%) !important; 
   color: var(--white) !important; 
-  border: 1.5px solid var(--dust);
+ 
 }
 
 @media (min-width: 600px) { 
@@ -579,28 +579,26 @@ transform: translate3d(0, 0, 0);}
 .fab-main img { width: 33px; height: 33px; object-fit: contain; } 
 .fab-main.active { transform: scale(1.05); }
 .fab-mini { 
-width: 46px; 
-height: 46px; 
+width: 49px; 
+height: 49px; 
 border-radius: 50%; 
 display: flex; 
 align-items: center; 
 justify-content: center; 
 text-decoration: none; 
 transition: transform .2s; 
-padding: 10px;           /* ระยะบีบไอคอนด้านในให้พอดีสวยงาม */
+padding: 10px;           
 overflow: hidden; 
  
-/* 🌟 ใช้สีขาวโปร่งแสง (ใสเหมือนแก้ว 80%) เท่ากันทุกปุ่ม ไม่เปลืองแรงเครื่อง */
-background: rgba(255, 255, 255, 0.8) !important; 
- 
-/* 🌟 ปรับเงาให้จางลงแบบมินิมอล เพื่อขับความใสของวงกลมให้เด่นขึ้น */
+
+background: rgba(255, 255, 255, 0.7) !important; 
+
 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important; 
 }
 
 .fab-mini:hover { transform: scale(1.1); }
  
-.fab-mini.line  { background: #00b900 !important; } /* สีเขียวสว่างของ LINE */
-.fab-mini.tel   { background: whitesmoke !important; } /* สีเทาเข้มพรีเมียม เข้ากับปุ่มหลัก */
+
 
 /* ============================================================ SCROLL TOP */
 .scroll-top { position: fixed; bottom: 28px; left: 28px; width: 42px; height: 42px; border-radius: 10px; background: var(--ink-mid); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, visibility .3s, transform .3s; z-index: 900; -webkit-tap-highlight-color: transparent; }
@@ -632,10 +630,10 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
 }
 
 .hero-caption-title-row {
-    flex-direction: row;      /* บังคับให้เป็นแนวนอนในมือถือด้วย */
+    flex-direction: row;     
     align-items: center; 
     justify-content: flex-start;
-    gap: 6px;                 /* ลดระยะห่างนิดนึงให้พอดีจอมือถือ */
+    gap: 6px;                
   }
 
   .hero-carousel {
@@ -649,8 +647,8 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
     display: flex; align-items: center; gap: 2px;
     line-height: 1.2; white-space: nowrap; overflow: hidden;
     text-overflow: ellipsis; 
-    flex-shrink: 0;           /* ห้ามหดหาย */
-    /* ลบ width: 100%; ออกไปแล้ว */
+    flex-shrink: 0;          
+   
   } 
   
   .hero-caption-type {
@@ -661,8 +659,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
     font-size: 13px; font-weight: 500; color: #fff;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     line-height: 1.35; 
-    flex-shrink: 1;           /* ยอมให้ข้อความยาวๆ โดนตัดเป็น ... ได้ */
-    /* ลบ width: 100%; และ margin-left ออกไปแล้ว */
+    flex-shrink: 1;          
     text-shadow: 0 1px 10px rgba(0,0,0,0.5); 
   }
   .hero-caption-price {
@@ -673,7 +670,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   .ann-div { display: none; }
   .ann-item { font-size: 11px;  }
   
-  .hero-slide { flex: 0 0 100%; } /* Mobile 1 รูปต่อสไลด์ */
+  .hero-slide { flex: 0 0 100%; } 
   .hero-caption { padding: 40px 14px 12px; }
   .hero-arrow { width: 25px; height: 25px; font-size: 15px; }
   .hero-arrow-prev { left: 10px; } .hero-arrow-next { right: 10px; }
@@ -702,7 +699,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
   .fab-wrapper { bottom: 20px; right: 20px; z-index: 900; }
   .scroll-top { bottom: 20px; left: 20px; }
   .page { padding-bottom: 40px; }
-  footer { margin-top: 10px; padding: 40px 18px 24px; }
+  footer { margin-top: 20px; padding: 40px 18px 24px; }
   
   .mobile-social-section { 
     display: flex; 
@@ -747,7 +744,7 @@ body.hide-floating .scroll-top {
 
 
 #listings {
- scroll-margin-top: 60px; /* ปรับตัวเลขนี้ได้เลยครับ ยิ่งเยอะ ยิ่งหยุดต่ำลง */
+ scroll-margin-top: 60px; 
 }
 
 

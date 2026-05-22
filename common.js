@@ -68,3 +68,29 @@ if (scrollTopBtn) {
     scrollTopBtn.classList.toggle('show', window.scrollY > 500);
   }, { passive: true });
 }
+
+function recoverPageAfterReturn() {
+  const modal = document.getElementById('detailModal');
+  const isModalOpen = modal?.classList.contains('open');
+
+  closeMenu();
+  document.getElementById('fabMain')?.classList.remove('active');
+  document.getElementById('fabOptions')?.classList.remove('show');
+
+  if (!isModalOpen) {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.body.classList.remove('hide-floating');
+  }
+
+  document.body.style.transform = 'translateZ(0)';
+  requestAnimationFrame(() => {
+    document.body.style.transform = '';
+  });
+}
+
+window.addEventListener('pageshow', recoverPageAfterReturn);
+window.addEventListener('focus', recoverPageAfterReturn);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') recoverPageAfterReturn();
+});
