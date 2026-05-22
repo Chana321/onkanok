@@ -142,7 +142,22 @@
     },{passive:true});
 
     /* ---- Modal ---- */
-    let galImages=[], galIndex=0, galleryWarmTimer=null, galScrollRaf=null;
+    let galImages=[], galIndex=0, galleryWarmTimer=null, galScrollRaf=null, galIsResetting=false;
+
+    function cancelGalleryScrollSync() {
+      if (!galScrollRaf) return;
+      cancelAnimationFrame(galScrollRaf);
+      galScrollRaf = null;
+    }
+
+    function jumpGalleryToStart(track) {
+      if (!track) return;
+      track.style.scrollBehavior = 'auto';
+      if (typeof track.scrollTo === 'function') {
+        track.scrollTo({ left: 0, behavior: 'auto' });
+      }
+      track.scrollLeft = 0;
+    }
 
     function loadGalleryImage(i) {
       if (!galImages.length) return;
@@ -179,6 +194,7 @@
     }
 
     function syncGalleryFromScroll() {
+      if (galIsResetting) return;
       const track = document.getElementById('galTrack');
       if (!track || !galImages.length || !track.clientWidth) return;
 
@@ -196,6 +212,8 @@
       galIndex = 0;
 
       if (galleryWarmTimer) clearTimeout(galleryWarmTimer);
+      cancelGalleryScrollSync();
+      galIsResetting = true;
 
      const trackHTML = galImages.map((src, i) =>
         `<div class="gal-slide">
@@ -218,7 +236,7 @@
       const body   = document.querySelector('.modal-body');
 
       track.innerHTML               = trackHTML;
-      track.scrollLeft              = 0;
+      jumpGalleryToStart(track);
       dots.innerHTML                = dotsHTML;
 
       document.getElementById('modalTitle').textContent = d.title;
@@ -240,10 +258,25 @@
       document.body.classList.add('hide-floating');
       galleryWarmTimer = setTimeout(() => warmGalleryImages(false), 350);
 
-      requestAnimationFrame(() => { body.scrollTop = 0; });
+      requestAnimationFrame(() => {
+        body.scrollTop = 0;
+        galIndex = 0;
+        jumpGalleryToStart(track);
+        buildDots();
+
+        requestAnimationFrame(() => {
+          galIndex = 0;
+          jumpGalleryToStart(track);
+          buildDots();
+          track.style.scrollBehavior = '';
+          galIsResetting = false;
+        });
+      });
     }
     function closeDetail() {
       if (galleryWarmTimer) clearTimeout(galleryWarmTimer);
+      cancelGalleryScrollSync();
+      galIsResetting = false;
       document.getElementById('detailModal').classList.remove('open');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
@@ -348,6 +381,7 @@
     document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f, true)));
     buildHero(); render('all', true);
     document.getElementById('galTrack')?.addEventListener('scroll', () => {
+      if (galIsResetting) return;
       if (galScrollRaf) return;
       galScrollRaf = requestAnimationFrame(() => {
         galScrollRaf = null;
