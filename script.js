@@ -142,7 +142,7 @@
     },{passive:true});
 
     /* ---- Modal ---- */
-    let galImages=[], galIndex=0, galleryWarmTimer=null;
+    let galImages=[], galIndex=0, galleryWarmTimer=null, galScrollRaf=null;
 
     function loadGalleryImage(i) {
       if (!galImages.length) return;
@@ -159,6 +159,35 @@
       loadGalleryImage(galIndex);
       loadGalleryImage(galIndex + 1);
       if (includePrev) loadGalleryImage(galIndex - 1);
+    }
+
+    function scrollGalleryTo(index, behavior = 'smooth') {
+      const track = document.getElementById('galTrack');
+      if (!track || !galImages.length) return;
+
+      galIndex = (index + galImages.length) % galImages.length;
+      const left = galIndex * track.clientWidth;
+      if (typeof track.scrollTo === 'function') {
+        track.scrollTo({ left, behavior });
+      } else if (typeof track.scroll === 'function') {
+        track.scroll({ left, behavior });
+      } else {
+        track.scrollLeft = left;
+      }
+      buildDots();
+      warmGalleryImages();
+    }
+
+    function syncGalleryFromScroll() {
+      const track = document.getElementById('galTrack');
+      if (!track || !galImages.length || !track.clientWidth) return;
+
+      const nextIndex = Math.max(0, Math.min(galImages.length - 1, Math.round(track.scrollLeft / track.clientWidth)));
+      if (nextIndex === galIndex) return;
+
+      galIndex = nextIndex;
+      buildDots();
+      warmGalleryImages();
     }
 
     function openDetail(idx) {
@@ -189,7 +218,7 @@
       const body   = document.querySelector('.modal-body');
 
       track.innerHTML               = trackHTML;
-      track.style.transform         = 'translateX(0%)';
+      track.scrollLeft              = 0;
       dots.innerHTML                = dotsHTML;
 
       document.getElementById('modalTitle').textContent = d.title;
@@ -228,8 +257,8 @@
     dots.forEach((d, i) => d.classList.toggle('active', i === galIndex)); 
   }
 }
-    function galMove(dir){ galIndex=(galIndex+dir+galImages.length)%galImages.length; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); warmGalleryImages(); }
-    function galJump(i){ galIndex=i; document.getElementById('galTrack').style.transform=`translateX(-${galIndex*100}%)`; buildDots(); warmGalleryImages(); }
+    function galMove(dir){ scrollGalleryTo(galIndex + dir); }
+    function galJump(i){ scrollGalleryTo(i); }
 
     /* GRID & PAGINATION */
     const observer=new IntersectionObserver(entries=>{ entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); observer.unobserve(e.target); } }); },{threshold:0.08});
@@ -318,29 +347,10 @@
     });
     document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f, true)));
     buildHero(); render('all', true);
-    /* ==========================================
-       SWIPE สำหรับ Modal (เบาเครื่องด้วย passive: true)
-    ============================================= */
-    let touchStartX = null;
-let touchStartY = null;
-const modalGalleryArea = document.querySelector('.modal-gallery');
-
-modalGalleryArea.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-modalGalleryArea.addEventListener('touchmove', e => {
-  if (!touchStartX) return;
-  const dx = Math.abs(e.touches[0].clientX - touchStartX);
-  const dy = Math.abs(e.touches[0].clientY - touchStartY);
-  if (dx > dy) e.preventDefault();
-}, { passive: false });
-
-modalGalleryArea.addEventListener('touchend', e => {
-  if (!touchStartX) return;
-  const diffX = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(diffX) > 40) galMove(diffX < 0 ? 1 : -1);
-  touchStartX = null;
-  touchStartY = null;
-}, { passive: true });
+    document.getElementById('galTrack')?.addEventListener('scroll', () => {
+      if (galScrollRaf) return;
+      galScrollRaf = requestAnimationFrame(() => {
+        galScrollRaf = null;
+        syncGalleryFromScroll();
+      });
+    }, { passive: true });
