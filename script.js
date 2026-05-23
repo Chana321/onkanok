@@ -149,48 +149,6 @@
 
     /* ---- Modal ---- */
     let galImages=[], galIndex=0, galleryWarmTimer=null, galScrollRaf=null, galIsResetting=false, modalHistoryOpen=false;
-    let modalPageScrollY = 0, modalPageLocked = false;
-
-    function isTabletTouch() {
-      return navigator.maxTouchPoints > 1 && window.innerWidth <= 1366 && Math.min(window.innerWidth, window.innerHeight) >= 700;
-    }
-
-    function lockModalPage() {
-      document.documentElement.style.overflow = 'hidden';
-
-      if (!isTabletTouch()) {
-        document.body.style.overflow = 'hidden';
-        return;
-      }
-
-      if (modalPageLocked) return;
-      modalPageScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${modalPageScrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      modalPageLocked = true;
-    }
-
-    function unlockModalPage() {
-      document.documentElement.style.overflow = '';
-
-      if (!modalPageLocked) {
-        document.body.style.overflow = '';
-        return;
-      }
-
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      modalPageLocked = false;
-      window.scrollTo(0, modalPageScrollY);
-    }
 
     function cancelGalleryScrollSync() {
       if (!galScrollRaf) return;
@@ -302,7 +260,8 @@
 
       const wasModalOpen = modal.classList.contains('open');
       modal.classList.add('open');
-      lockModalPage();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow            = 'hidden';
       document.body.classList.add('hide-floating');
       if (!wasModalOpen && !modalHistoryOpen) {
         try {
@@ -338,7 +297,8 @@
       cancelGalleryScrollSync();
       galIsResetting = false;
       modal?.classList.remove('open');
-      unlockModalPage();
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
       document.body.classList.remove('hide-floating');
 
       if (fromHistory) {
