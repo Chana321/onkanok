@@ -404,7 +404,7 @@
 
     window.addEventListener('load',()=>{
       const isMobile=window.matchMedia('(max-width:768px)').matches;
-      if(isMobile){ DATA.slice(0,6).forEach(d=>{new Image().src=d.img;}); setTimeout(()=>DATA.slice(6).forEach(d=>{new Image().src=d.img;}),3000); }
+      if(isMobile){ DATA.slice(0,3).forEach(d=>{new Image().src=d.img;}); }
       else DATA.forEach(d=>{new Image().src=d.img;});
     });
     document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f, true)));
