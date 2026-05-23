@@ -80,6 +80,11 @@ function recoverPageAfterReturn() {
   if (!isModalOpen) {
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
     document.body.classList.remove('hide-floating');
   }
 

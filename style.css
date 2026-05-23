@@ -792,10 +792,89 @@ body.hide-floating .scroll-top {
   .hero-slide { flex: 0 0 100% !important; }
 }
 
-/* iPad / tablet จอสัมผัส ให้ใช้ carousel แบบมือถือ */
+/* จอสัมผัสขนาดเล็ก ให้ใช้ carousel แบบมือถือ */
 @media (hover: none) and (pointer: coarse) and (max-width: 1366px) {
   .hero-carousel { aspect-ratio: 16 / 9; }
   .hero-slide { flex: 0 0 100% !important; }
+}
+
+/* iPad / tablet จอสัมผัส ให้แสดง carousel 2 รูป */
+@media (hover: none) and (pointer: coarse) and (min-width: 700px) and (min-height: 700px) and (max-width: 1366px) {
+  .hero-carousel { aspect-ratio: 32 / 9; }
+  .hero-slide { flex: 0 0 50% !important; }
+}
+
+/* Modal เฉพาะ iPad / tablet: ลดความสูงและทำรายละเอียดให้กระชับขึ้น */
+@media (hover: none) and (pointer: coarse) and (min-width: 700px) and (min-height: 700px) and (max-width: 1366px) {
+  .modal-box {
+    height: auto;
+    max-height: 82dvh;
+    max-width: min(720px, calc(100vw - 40px));
+    border-radius: 16px;
+  }
+
+  .modal-gallery {
+    max-height: 38dvh;
+  }
+
+  .modal-body {
+    padding: 16px 20px 6px;
+  }
+
+  .modal-tag-row {
+    margin-bottom: 6px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .modal-loc {
+    font-size: 12.5px;
+    margin-bottom: 10px;
+  }
+
+  .detail-grid {
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+  }
+
+  .detail-item {
+    border-radius: 10px;
+    padding: 7px 10px;
+  }
+
+  .detail-label {
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .detail-value,
+  .detail-price .detail-value {
+    font-size: 14px;
+  }
+
+  .modal-section-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .modal-desc-text {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .modal-cta {
+    padding: 12px 20px 16px;
+  }
+
+  .btn-cta {
+    height: 44px;
+    font-size: 13px;
+  }
 }
 
 

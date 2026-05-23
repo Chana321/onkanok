@@ -40,10 +40,14 @@
     const HERO_IV=5000;
 
    function getItemsPerView() {
-      const isTabletTouch = navigator.maxTouchPoints > 1 && window.innerWidth <= 1366;
-      if (window.innerWidth <= 600 || isTabletTouch) return 1; // มือถือ/iPad: 1 รูป
-      if (window.innerWidth <= 1024) return 2; // แท็บเล็ตที่ไม่ใช่จอสัมผัส: 2 รูป
-      if (window.innerWidth < 2200) return 3;  // Full HD/โน้ตบุ๊กจอใหญ่: 3 รูป
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const isTouch = navigator.maxTouchPoints > 1;
+      const isTabletTouch = isTouch && width <= 1366 && Math.min(width, height) >= 700;
+
+      if (width <= 600 || (isTouch && width <= 1024 && Math.min(width, height) < 700)) return 1; // มือถือ: 1 รูป
+      if (width <= 1024 || isTabletTouch) return 2; // iPad/แท็บเล็ต: 2 รูป
+      if (width < 2200) return 3;  // Full HD/โน้ตบุ๊กจอใหญ่: 3 รูป
       return 4;                                // จอ 2K ขึ้นไป: 4 รูป
     }
 
@@ -145,6 +149,37 @@
 
     /* ---- Modal ---- */
     let galImages=[], galIndex=0, galleryWarmTimer=null, galScrollRaf=null, galIsResetting=false, modalHistoryOpen=false;
+    let modalScrollY = 0, modalScrollLocked = false;
+
+    function isTabletModalViewport() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      return navigator.maxTouchPoints > 1 && width <= 1366 && Math.min(width, height) >= 700;
+    }
+
+    function lockModalPageScroll() {
+      if (!isTabletModalViewport()) return;
+      if (modalScrollLocked && document.body.style.position === 'fixed') return;
+      modalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${modalScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      modalScrollLocked = true;
+    }
+
+    function unlockModalPageScroll() {
+      if (!modalScrollLocked) return;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      modalScrollLocked = false;
+      window.scrollTo(0, modalScrollY);
+      modalScrollY = 0;
+    }
 
     function cancelGalleryScrollSync() {
       if (!galScrollRaf) return;
@@ -259,6 +294,7 @@
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow            = 'hidden';
       document.body.classList.add('hide-floating');
+      lockModalPageScroll();
       if (!wasModalOpen && !modalHistoryOpen) {
         try {
           history.pushState({ detailModal: true }, '', location.href);
@@ -295,6 +331,7 @@
       modal?.classList.remove('open');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      unlockModalPageScroll();
       document.body.classList.remove('hide-floating');
 
       if (fromHistory) {
