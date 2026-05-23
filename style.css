@@ -128,6 +128,7 @@ body {
   position: relative; width: 100%;
   overflow: hidden; background: #080808;
   margin-top: 70px;
+  aspect-ratio: 16 / 3;
 }
 .hero-track {
   display: flex;
@@ -775,16 +776,19 @@ body.hide-floating .scroll-top {
 
 /* จอ 2K ขึ้นไป ให้กลับไปแสดง 4 รูป */
 @media (min-width: 2200px) {
+  .hero-carousel { aspect-ratio: 64 / 9; }
   .hero-slide { flex: 0 0 25% !important; }
 }
 
 /* สำหรับ iPad / แท็บเล็ต ให้แสดง 2 รูป */
 @media (max-width: 1024px) {
+  .hero-carousel { aspect-ratio: 32 / 9; }
   .hero-slide { flex: 0 0 50% !important; }
 }
  
 /* สำหรับมือถือจอเล็ก ให้แสดง 1 รูป */
 @media (max-width: 600px) {
+  .hero-carousel { aspect-ratio: 16 / 9; }
   .hero-slide { flex: 0 0 100% !important; }
 }
 
