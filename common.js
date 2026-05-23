@@ -89,8 +89,29 @@ function recoverPageAfterReturn() {
   });
 }
 
+const isFacebookInAppBrowser = /FBAN|FBAV|FB_IAB|FB4A|FBIOS/i.test(navigator.userAgent || '');
+let facebookHiddenAt = 0;
+
+function refreshHomeAfterFacebookReturn() {
+  if (!isFacebookInAppBrowser || !facebookHiddenAt) return;
+  const awayFor = Date.now() - facebookHiddenAt;
+  facebookHiddenAt = 0;
+  if (awayFor > 600) location.replace('/');
+}
+
 window.addEventListener('pageshow', recoverPageAfterReturn);
-window.addEventListener('focus', recoverPageAfterReturn);
+window.addEventListener('focus', () => {
+  recoverPageAfterReturn();
+  refreshHomeAfterFacebookReturn();
+});
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') recoverPageAfterReturn();
+  if (document.visibilityState === 'hidden' && isFacebookInAppBrowser) {
+    facebookHiddenAt = Date.now();
+    return;
+  }
+
+  if (document.visibilityState === 'visible') {
+    recoverPageAfterReturn();
+    refreshHomeAfterFacebookReturn();
+  }
 });
