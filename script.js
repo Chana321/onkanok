@@ -39,9 +39,10 @@
     let curFilter='all', curSort='default', heroPage=0, heroTimer=null;
     const HERO_IV=5000;
 
-   function getItemsPerView() { 
-      if (window.innerWidth <= 600) return 1;  // มือถือจอเล็ก: 1 รูป
-      if (window.innerWidth <= 1024) return 2; // แท็บเล็ต/iPad: 2 รูป
+   function getItemsPerView() {
+      const isTabletTouch = navigator.maxTouchPoints > 1 && window.innerWidth <= 1366;
+      if (window.innerWidth <= 600 || isTabletTouch) return 1; // มือถือ/iPad: 1 รูป
+      if (window.innerWidth <= 1024) return 2; // แท็บเล็ตที่ไม่ใช่จอสัมผัส: 2 รูป
       if (window.innerWidth < 2200) return 3;  // Full HD/โน้ตบุ๊กจอใหญ่: 3 รูป
       return 4;                                // จอ 2K ขึ้นไป: 4 รูป
     }
@@ -403,7 +404,7 @@
     }
 
     window.addEventListener('load',()=>{
-      const isMobile=window.matchMedia('(max-width:768px)').matches;
+      const isMobile=window.matchMedia('(max-width:768px)').matches || (navigator.maxTouchPoints > 1 && window.innerWidth <= 1366);
       if(isMobile){ DATA.slice(0,3).forEach(d=>{new Image().src=d.img;}); }
       else DATA.forEach(d=>{new Image().src=d.img;});
     });

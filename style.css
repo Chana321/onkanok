@@ -626,7 +626,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
 .scroll-top svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; }
 
 /* ============================================================ RESPONSIVE */
-@media (max-width: 768px) {
+@media (max-width: 768px), (hover: none) and (pointer: coarse) and (max-width: 1366px) {
 
 
   .modal-overlay {
@@ -780,7 +780,7 @@ body.hide-floating .scroll-top {
   .hero-slide { flex: 0 0 25% !important; }
 }
 
-/* สำหรับ iPad / แท็บเล็ต ให้แสดง 2 รูป */
+/* สำหรับแท็บเล็ตทั่วไป ให้แสดง 2 รูป */
 @media (max-width: 1024px) {
   .hero-carousel { aspect-ratio: 32 / 9; }
   .hero-slide { flex: 0 0 50% !important; }
@@ -788,6 +788,12 @@ body.hide-floating .scroll-top {
  
 /* สำหรับมือถือจอเล็ก ให้แสดง 1 รูป */
 @media (max-width: 600px) {
+  .hero-carousel { aspect-ratio: 16 / 9; }
+  .hero-slide { flex: 0 0 100% !important; }
+}
+
+/* iPad / tablet จอสัมผัส ให้ใช้ carousel แบบมือถือ */
+@media (hover: none) and (pointer: coarse) and (max-width: 1366px) {
   .hero-carousel { aspect-ratio: 16 / 9; }
   .hero-slide { flex: 0 0 100% !important; }
 }
@@ -988,7 +994,7 @@ body.hide-floating .scroll-top {
   box-shadow: 0 10px 28px rgba(0,0,0,.18);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (hover: none) and (pointer: coarse) and (max-width: 1366px) {
   .thanks-page {
     padding-top: calc(var(--nav-height) + 32px);
   }
