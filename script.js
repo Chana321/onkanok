@@ -416,6 +416,7 @@
     });
     document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>render(c.dataset.f, true)));
     buildHero(); render('all', true);
+    history.replaceState({ base: true }, '', location.href);
     document.getElementById('galTrack')?.addEventListener('scroll', () => {
       if (galIsResetting) return;
       if (galScrollRaf) return;
