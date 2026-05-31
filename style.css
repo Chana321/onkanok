@@ -961,7 +961,7 @@ footer {
   font-weight: 500;
   padding: 4px 14px;
   border-radius: 20px;
-  background: linear-gradient(135deg,#111111 0%,#6b6b6b 100%);
+  background:  linear-gradient(135deg,#06200a 0%,#6b6b6b 100%);
   color: var(--white) !important;
 }
 .modal-title {
